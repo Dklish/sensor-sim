@@ -97,6 +97,6 @@ class Sensor:
                         logging.error("Invalid Input")
 
 #create a object of sensor class type
-sensor_1 = Sensor()
+#sensor_1 = Sensor()
 #okay here we are trying to run it
-sensor_1.run_sensor()
+#sensor_1.run_sensor()
