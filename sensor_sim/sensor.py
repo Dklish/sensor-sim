@@ -66,7 +66,6 @@ class Sensor:
 
         self.enforce_limits()
 
-
     #so our sensor does not get to hot or cool off into the abyss
     def enforce_limits(self):
         if self.temp >= 100:
@@ -75,7 +74,15 @@ class Sensor:
         if self.temp < 20.0 and self.state == 0:
             self.temp = 20.0
 
-    def run_sensor(self):
+    def set_state(self, new_state: int):
+        if new_state not in [0,1,2]:
+            logging.error("Invalid State Value", new_state)
+            return False
+        else: self.state = new_state
+        return True
+
+#looping for user input would not interface with API
+    '''def run_sensor(self):
         self.user_input = input("Enter s to turn sensor on!")
         if self.user_input == "s":
             print("enter q to quit sensor, 0 to turn if off, 2 to start it 1 to idle")
@@ -94,7 +101,7 @@ class Sensor:
                     if user_input in ["0", "1", "2"]:
                         self.state = int(user_input)
                     else:
-                        logging.error("Invalid Input")
+                        logging.error("Invalid Input")'''
 
 #create a object of sensor class type
 #sensor_1 = Sensor()
