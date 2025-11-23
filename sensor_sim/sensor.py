@@ -3,6 +3,7 @@ import time
 import logging
 import select
 import sys
+import io
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -18,8 +19,8 @@ class Sensor:
         #default state idle
         self.state = 1
         #creating object so we can poll continously from user
-        self.poller = select.poll()
-        self.poller.register(sys.stdin.fileno(), select.POLLIN)
+        #self.poller = select.poll()
+        #self.poller.register(sys.stdin.fileno(), select.POLLIN)
         self.user_input = ""
         #self.values = [0,1,2]
 
@@ -75,11 +76,12 @@ class Sensor:
             self.temp = 20.0
 
     def set_state(self, new_state: int):
-        if new_state not in [0,1,2]:
-            logging.error("Invalid State Value", new_state)
-            return False
-        else: self.state = new_state
-        return True
+        if new_state in (0, 1, 2):
+            self.state = new_state
+            return True
+
+        logging.error("Invalid State Value %s", new_state)  # <-- note the %s here
+        return False
 
 #looping for user input would not interface with API
     '''def run_sensor(self):
